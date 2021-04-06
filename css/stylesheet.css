@@ -24,6 +24,7 @@ div#board-background {
 }
 
 body {
+	background-color:#444;
 	overflow: hidden;
 		-webkit-user-select: none;
 		   -moz-user-select: -moz-none;
