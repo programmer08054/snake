@@ -4,21 +4,21 @@
 <head>
 	<title>Snake Game</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css?v=1" />
 </head>
 
 <body>
 	<div id="board-background">
-	<div id="visual-gameboard-div">
-	</div>
-	<canvas id="game-board">
-	</canvas>
-	<div id="footer">
-		<p id="footer-p"><span id="footer-span"></span></p>
-	</div>
-	<div id="header">
-		<p id="header-p">Score: <span id="score">0</span></p>
-	</div>
+		<div id="visual-gameboard-div">
+		</div>
+		<canvas id="game-board">
+		</canvas>
+		<div id="footer">
+			<p id="footer-p"><span id="footer-span"></span></p>
+		</div>
+		<div id="header">
+			<p id="header-p">Score: <span id="score">0</span></p>
+		</div>
 	</div>
 	<div id="popup-background">
 	</div>
@@ -43,11 +43,11 @@
 		<p><button id="hard" class="button" onclick="Snake.setPeriod(80);Interface.displayPopup('menu');">Hard</button></p>
 	</div>
 </body>
-<script src="js/Direction.js"></script>
-<script src="js/QueuedInput.js"></script>
-<script src="js/Snake.js"></script>
-<script src="js/GameBoard.js"></script>
-<script src="js/Interface.js"></script>
+<script src="js/Direction.js?v=1"></script>
+<script src="js/QueuedInput.js?v=1"></script>
+<script src="js/Snake.js?v=1"></script>
+<script src="js/GameBoard.js?v=1"></script>
+<script src="js/Interface.js?v=1"></script>
 <script>
 	Snake.createSnake();
 	Interface.onResize();
