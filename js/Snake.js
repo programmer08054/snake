@@ -214,11 +214,19 @@ Snake.autoPlay = function () {
 }
 
 Snake.die = function () {
-	QueuedInput.removeListeners();
-	Snake.killAnimationFrame = true;
-	Snake.dead = true;
-	Interface.displayPopup('restart');
-	document.addEventListener('keydown', QueuedInput.restartHandler);
+	if (Snake.isAutoPlayOn) {
+		for(let i = 0; i < Snake.parts.length; i++) {
+			Snake.parts[i].xPosition = 0;
+			Snake.parts[i].yPosition = 0;
+			Snake.currentDirection = Direction.RIGHT;
+		}
+	} else {
+		QueuedInput.removeListeners();
+		Snake.killAnimationFrame = true;
+		Snake.dead = true;
+		Interface.displayPopup('restart');
+		document.addEventListener('keydown', QueuedInput.restartHandler);
+	}
 }
 
 Snake.win = function () {

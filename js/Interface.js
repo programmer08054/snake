@@ -42,16 +42,14 @@ Interface.onResize = function () {
 
     let divs = [Interface.restart, Interface.pause, Interface.menu, Interface.difficulty];
     for (let popupDiv of divs) {
-        if (popupDiv.style.display != 'none') {
-            let left = (window.innerWidth - popupDiv.offsetWidth) / 2;
-            let top = (window.innerHeight - popupDiv.offsetHeight) / 2;
-            if (popupDiv.style.left.length == 0
-                || Math.abs(parseInt(popupDiv.style.left) - left) > 5
-                || popupDiv.style.top.length == 0
-                || Math.abs(parseInt(popupDiv.style.top) - top) > 5) {
-                popupDiv.style.left = left + 'px';
-                popupDiv.style.top = top + 'px';
-            }
+        let left = (window.innerWidth - popupDiv.offsetWidth) / 2;
+        let top = (window.innerHeight - popupDiv.offsetHeight) / 2;
+        if (popupDiv.style.left.length == 0
+            || Math.abs(parseInt(popupDiv.style.left) - left) > 5
+            || popupDiv.style.top.length == 0
+            || Math.abs(parseInt(popupDiv.style.top) - top) > 5) {
+            popupDiv.style.left = left + 'px';
+            popupDiv.style.top = top + 'px';
         }
     }
 
@@ -66,24 +64,37 @@ Interface.onResize = function () {
 Interface.displayPopup = function (value) {
     Interface.hidePopup();
     let background = document.getElementById('popup-background');
-    background.style.display = 'block';
+    background.style.zIndex = 10;
     if ('restart' === value) {
-        Interface.restart.style.display = 'block';
+        Interface.restart.style.zIndex = 11;
+        for(let button of Interface.restart.getElementsByTagName('button')) {
+            button.disabled = false;
+        }
         setTimeout(function () { Interface.restartStartGameButton.addEventListener('touchstart', Snake.startGame, {passive: false}); }, 200);
         setTimeout(function () { Interface.restartMainMenuButton.addEventListener('touchstart', Snake.mainMenu, {passive: false}); }, 200);
     } else if ('pause' === value) {
-        Interface.pause.style.display = 'block';
+        Interface.pause.style.zIndex = 11;
+        for(let button of Interface.pause.getElementsByTagName('button')) {
+            button.disabled = false;
+        }
         setTimeout(function () { Interface.pauseResumeButton.addEventListener('touchstart', Snake.resumeGame, {passive: false}); }, 200);
     } else if ('menu' === value) {
-        Interface.menu.style.display = 'block';
+        Interface.menu.style.zIndex = 11;
+        for(let button of Interface.menu.getElementsByTagName('button')) {
+            button.disabled = false;
+        }
         setTimeout(function () { Interface.startGameButton.addEventListener('touchstart', Snake.startGame, {passive: false}); }, 200);
         setTimeout(function () { Interface.difficultyButton.addEventListener('touchstart', Interface.displayDifficultyPopup, {passive: false}); }, 200);
     } else if ('difficulty' === value) {
-        Interface.difficulty.style.display = 'block';
+        Interface.difficulty.style.zIndex = 11;
+        for(let button of Interface.difficulty.getElementsByTagName('button')) {
+            button.disabled = false;
+        }
         setTimeout(function () { Interface.easyButton.addEventListener('touchstart', Interface.setEasy, {passive: false}); }, 200);
         setTimeout(function () { Interface.mediumButton.addEventListener('touchstart', Interface.setMedium, {passive: false}); }, 200);
         setTimeout(function () { Interface.hardButton.addEventListener('touchstart', Interface.setHard, {passive: false}); }, 200);
     }
+    Interface.onResize()
 }
 
 Interface.displayDifficultyPopup = function () {
@@ -94,11 +105,14 @@ Interface.setMedium = function () {Snake.setPeriod(140);Interface.displayPopup('
 Interface.setHard = function () {Snake.setPeriod(80);Interface.displayPopup('menu');}
 
 Interface.hidePopup = function (value) {
-    Interface.background.style.display = 'none';
-    Interface.restart.style.display = 'none';
-    Interface.pause.style.display = 'none';
-    Interface.menu.style.display = 'none';
-    Interface.difficulty.style.display = 'none';
+    Interface.background.style.zIndex = 0;
+    Interface.restart.style.zIndex = 0;
+    Interface.pause.style.zIndex = 0;
+    Interface.menu.style.zIndex = 0;
+    Interface.difficulty.style.zIndex = 0;
+    for(let button of document.getElementsByTagName('button')) {
+        button.disabled = true;
+    }
     Interface.restartStartGameButton.removeEventListener('touchstart', Snake.startGame, {passive: false});
     Interface.restartMainMenuButton.removeEventListener('touchstart', Snake.mainMenu, {passive: false});
     Interface.pauseResumeButton.removeEventListener('touchstart', Snake.resumeGame, {passive: false});
